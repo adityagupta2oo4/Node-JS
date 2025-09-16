@@ -1,0 +1,46 @@
+client -(sends request)-> server
+
+request -> Event Queue (chala gya)
+
+now the request from the Event queue get to the event loop
+
+//event loop - work
+
+1)watch ovr the EQ
+2)pick a req from queue
+
+when EL pick up a req from  EQ it can be of two type
+a)blocking operation (sync)
+b)non - blocking operation(async task)
+
+3) Now EL determin weather the req is block or non blocking task / operation
+   
+    case 1
+  - if it's non blocking operation
+  - it process the req and send the response to the user
+
+    case 2
+   -if it's blocking operation
+   -blocking operation -> thread pool (here a thread/worker is assigneed to the req)
+   - once the operation is performed by the thread it return to the pool by providing result
+   -response is sent to the client /user
+
+
+problem - > limited thread (by default 4 thread/worker)
+
+1st blocking operstion take one worker so the 2nd, 3rd and 4th what about the 5th now it have to wait 
+for the worker to be finished 
+
+- here comes the scalibilty issue suppose you had a lot on sync operation in your backend  it will cause a lot delay
+
+- so it's a good thing to have more and more asyn (non blocking) operation in your code
+
+- the thread pool size can increased to max - depend on the number of core on your server cpu
+-ex - 8 core -  8 thread max
+
+const os = require("os"); // gives the information of you pc
+console.log(os.cpus().length); 
+
+
+
+
