@@ -10,6 +10,6 @@ console.log("hello there! I am running using node js runtime environment");
 
 //npm- node package manager 
 // whenever we create a new we have to npm init for the template(package.json)
-// package.json - configuration file (this is uses to write different script install external dependencies)
+// package.json - configuration file (this is used to write different script install external dependencies)
 
 //npm run start  -> will automatically run the hello.js as we have edited in the json file

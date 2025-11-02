@@ -4,7 +4,7 @@ const fs = require('fs'); // import built in fs module
 // fs.writeFileSync("./test.txt","Hey there"); // creating a file in direcorty with content "hey there"
 
 //Async
-// fs.writeFile("./testAs.txt","Hello World" ,(err)=>{});
+// fs.writeFile("./testAs.txt","Hello World" ,(err)=>{});  // to write on existing file
 
 // sync and async - are blocking and  non-blocking request
 
@@ -31,7 +31,7 @@ const fs = require('fs'); // import built in fs module
 
 // fs.appendFileSync("./test.txt",`\n${Date.now()} 192.168.9.0 User1`);
 
-//copying from one file to new file
+//copying from one file to new file (if nw file doesn't exit create new one)
 // fs.cpSync("./test.txt","./copy.txt");
 
 //deleting

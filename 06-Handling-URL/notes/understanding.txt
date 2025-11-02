@@ -1,0 +1,35 @@
+protocol -> set of rules which tell browser how to comm with the browser https (s-> means secure)
+Domain -> human freindly name which actually points to some IP using Ip everywhere is not possible not human freindly
+Quer-Parameter we can have N number of parameter
+--spaces not allowed in URL
+
+Http module ->
+1761918017821 : /about?myname=adityaNew Req Recived
+cannot parse this
+go to npm.jsx
+for that we need install package name url for that
+
+if some thing like ->
+      "dependencies": {
+        "url": "^0.11.4"
+      }
+
+now if you delete node module folder then just npm install will do the work since have it in your dependencies 
+const url = require("url"); - > search flow - > node module or in your package tif not then in built in module
+
+const myurl = url.parse(req.url,true); // true for parsig query string
+
+Url {
+  protocol: null,
+  slashes: null,
+  auth: null,
+  host: null,
+  port: null,
+  hostname: null,
+  hash: null,
+  search: '?myname=aditya&uid=1',
+  query: [Object: null prototype] { myname: 'aditya', uid: '1' },
+  pathname: '/about',
+  path: '/about?myname=aditya&uid=1',
+  href: '/about?myname=aditya&uid=1'
+}

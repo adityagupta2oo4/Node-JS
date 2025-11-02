@@ -1,8 +1,8 @@
 // keep your main file named as index.js(entry point)
 
 const fs = require("fs");
-const http = require("http"); // builtd in package in node  to create node server
-//                                   handler     - when ever server get request it will run the call-back function
+const http = require("http"); // built in package in node  to create node server
+//                                   handler     - whenever server get request it will run the call-back function
 //                                 ------------
 const myServer = http.createServer((req,res)=>{
     //all the meta data (ip adress etc) about user is in req object 
