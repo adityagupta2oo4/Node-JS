@@ -1,0 +1,9 @@
+
+So this how we handle different URL's
+make switch cases for each and url like / or /homepage /  or /search 
+handle the Parameter query 
+detect the method and proceed accordingly 
+but this is very rudementle way and coding backend very tedious so for this we have Express FrameWork
+
+HTTP methods
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods
