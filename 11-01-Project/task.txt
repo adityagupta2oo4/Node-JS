@@ -19,3 +19,9 @@ DELET /api/users/1 -  Delete the user with ID 1
 
 // in this project we are not connecting any DB we will hard code in JSON 
 https://www.mockaroo.com/ -> used to genereate DB for testing purpose
+
+---- till now we working with browser and they always give GET request no other
+
+---- here comes in picture POSTMAN which help in API testing and API documentation
+--- 200k is standard response for successful 
+--- xww-form-urlencoded -> new type of form (body)
