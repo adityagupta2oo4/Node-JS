@@ -1,0 +1,21 @@
+design REST API - JSON
+
+//hybrid server 
+GET / user - HTML document render  - for browser
+GET /api/users- all the user  JSON- done - for other application like app
+
+
+GET/api/users/1 - GET the user with id 1
+GET/api/users/2 - GET the user with id 2
+-- here 1 and 2 is our dynamic path parameter
+
+GET /api/users/:id - where :id is dynamic | variable
+
+POST /api/users - create new user
+
+PATCH /api/users/1 - edit user with id 1
+
+DELET /api/users/1 -  Delete the user with ID 1
+
+// in this project we are not connecting any DB we will hard code in JSON 
+https://www.mockaroo.com/ -> used to genereate DB for testing purpose
