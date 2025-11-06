@@ -15,7 +15,7 @@ app.get('/about',(req,res) => {
 
 app.listen(5178, () => console.log("Server Started")); // this creates the servery at port 5178 and automatclly import the http module
 
-
+// express is just framework which internally work with HTTP only
 
 
 
