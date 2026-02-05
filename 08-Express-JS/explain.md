@@ -94,7 +94,6 @@ app.listen(3000, () => console.log('Server running on http://localhost:3000'));
 * Built-in **middleware support** (for JSON, forms, static files, etc.)
 * Easy **error handling** and **chaining** of middleware.
 
----
 
 ## 🔍 5️⃣ Example: JSON POST Request
 
