@@ -1,6 +1,9 @@
 console.log("hello there! I am running using node js runtime environment");
 
 // console.log(alert("Hey")) // this will give us an error
+// ❌ alert() fails because it’s browser-specific
+// ✅ Node.js replaces browser APIs with server-side APIs
+// ⚡ This allows JavaScript to run outside the browser efficiently
 
 //why? we know that v8 engine
 //  was embedded with the C++ 

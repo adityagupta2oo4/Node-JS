@@ -41,6 +41,53 @@ for the worker to be finished
 const os = require("os"); // gives the information of you pc
 console.log(os.cpus().length); 
 
+📊 Simple comparison
+Operation type	Uses threads?	Blocks main thread?
+Synchronous	✅ Main thread	 ✅ Background threads
+Asynchronous❌Main thread ✅ Background threads	
+
+🧵 Main Thread
+
+There is ONE main JavaScript thread
+
+Runs your JS + event loop
+
+🧵 Background Threads (thread pool)
+
+Usually 4 by default (configurable)
+
+Used for async heavy work (fs, crypto, etc.)
 
 
+Why async makes Node.js scalable
+
+Imagine a server with 10,000 users.
+
+❌ Synchronous model:
+
+Each request blocks a thread:
+
+Request 1 → wait
+Request 2 → wait
+Request 3 → wait
+
+
+You need:
+
+👉 thousands of threads
+👉 huge memory
+👉 slow performance
+
+✅ Asynchronous Node model:
+
+Main thread:
+
+Send task → move on
+Send task → move on
+Send task → move on
+
+
+Background handles waiting.
+
+👉 One main thread can manage THOUSANDS of requests.
 
