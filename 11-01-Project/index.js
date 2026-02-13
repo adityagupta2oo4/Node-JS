@@ -12,10 +12,8 @@ app.use(express.urlencoded({extended:false})); // convert form data into object 
 
 app.use((req,res,next) =>{
     console.log("Helloo from middleware 1");
-    // return res.json({status : "in middleware"}) // i ended the response here so it didn't wnet to next
-
+    // return res.json({status : "in middleware"}) //i ended the response here so it didn't net to next
     //practical use case
-
     fs.appendFile('log.txt',`\n ${Date.now()} ${req.ip} ${req.method} ${req.path}`,
         (err,data)=>{
             next();

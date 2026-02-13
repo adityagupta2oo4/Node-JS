@@ -4,3 +4,19 @@
  1762409272391 ::1 PATCH /api/users/1000
  1762409277494 ::1 DELETE /api/users/999
  1762417647359 ::1 GET /api/users
+ 1770960700440 ::1 GET /
+ 1770960858283 ::1 GET /users
+ 1770960858505 ::1 GET /favicon.ico
+ 1770960937592 ::1 GET /.well-known/appspecific/com.chrome.devtools.json
+ 1770960947060 ::1 GET /
+ 1770962862388 ::1 GET /users/
+ 1770963117803 ::1 GET /api/users
+ 1770963195860 ::1 POST /api/users/
+ 1770963259686 ::1 POST /api/users/
+ 1770963290621 ::1 GET /api/users/1005
+ 1770963339832 ::1 GET /api/users/905
+ 1770963362795 ::1 DELETE /api/users/1005
+ 1770963372543 ::1 PATCH /api/users/1005
+ 1770963386643 ::1 GET /api/users/1005
+ 1770963393134 ::1 DELETE /api/users/1005
+ 1770963398268 ::1 GET /api/users/1005
