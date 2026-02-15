@@ -32,7 +32,7 @@ app.use((req,res,next) =>{
     console.log(req.headers); // yo can set request header from postman
 
     console.log("Helloo from middleware 2");
-    req.myUserName = "aditya"; //changing the request and it can be accessed by other routes and middleware
+    req.myUserName = "adity"; //changing the request and it can be accessed by other routes and middleware
     next(); 
 })
 
