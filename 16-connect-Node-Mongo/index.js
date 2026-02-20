@@ -1,113 +1,128 @@
 
 const express = require("express");
 const app = express();
-const PORT = 5190;
-//acquire data
-const users = require("./MOCK_DATA.json");
-const fs = require('fs');
+const PORT = 5490;
+
+// connecting to database
+const mongoose = require("mongoose");
+
+//making schema
+
+const userSchema = new mongoose.Schema({
+    first_name:{
+        type : String,
+        required : true,
+    },
+    last_name : {
+        type : String,
+    },
+    email:{
+        type : String,
+        required : true,
+        unique : true,
+    },
+    job_title : {
+        type : String,
+    },
+    gender : {
+        type: String,
+    },
+},{timestamps: true})
+
+//connecting mongoose with node/express
+
+mongoose
+    .connect("mongodb://127.0.0.1:27017/myApp")
+    .then(()=>{
+        console.log("Connected to database");
+    })
+    .catch((err)=>{
+        console.log("Error connecting to database",err);
+    })
+
+
+// using schema making an model
+
+const User = mongoose.model("user",userSchema);
+
 
 //aplying middleware - plugin
 app.use(express.urlencoded({extended:false})); // convert form data into object and then store it in body which is in req
 
-
-app.use((req,res,next) =>{
-    console.log("Helloo from middleware 1");
-    fs.appendFile('log.txt',`\n ${Date.now()} ${req.ip} ${req.method} ${req.path}`,
-        (err,data)=>{
-            next();
-        }
-    );
-
-})
-
-app.use((req,res,next) =>{
-    console.log("Helloo from middleware 2");
-    req.myUserName = "aditya"; //changing the request and it can be accessed by other routes and middleware
-    next(); 
-})
-
-app.use((req,res,next) =>{
-    console.log("Helloo from middleware 3");
-    console.log("hello ",req.myUserName);
-    next(); 
-})
-//routes
-
-//example of hybrid server -- 
-// ssr
-app.get("/users", (req, res) => {
-    const html = `
-    <ul>
-    ${users.map((user) => {
-        return `<li>${user.first_name}</li>`
-    }).join("")
-        }
-    </ul>
-    `;
-    res.send(html);
-})
-//csr
-app.get("/api/users", (req, res) => {
-
-    return res.json(users);
-})
-
-// let's do others
-
-app.post('/api/users', (req, res) => {
-    //to do create new user
-    const body = req.body; // whatever request we send from backend is available in the body
-    console.log('Body',body);
-
-    users.push({id: users.length + 1,...body}) // to append but we also have to write in file for that we need fs model
-    fs.writeFile('./MOCK_DATA.json', JSON.stringify(users),(err, data)=>{
-        return res.json({ status: "succes",id :users.length});
-    });
+app.get("/", (req, res) => {
+  res.status(200).send("Server is working");
 });
 
 
-// other way if route is same in multiple
+app.post("/api/users",async (req,res)=>{
+
+    const body = req.body; // body contain the information passed in url parameter
+
+    //checking if all the parameter are given or not
+    if(
+        !body ||
+        !body.first_name ||
+        !body.last_name ||
+        !body.email ||
+        !body.job_title ||
+        !body.gender 
+    ){
+        return res.status(400).json({msg:"All  field are required"})
+    }
+
+    const result = await User.create({
+        first_name : body.first_name,
+        last_name : body.last_name,
+        email : body.email,
+        job_title: body.job_title,
+        gender : body.gender,
+
+    })
+
+    console.log(result);
+    return res.status(201).json({msg:"Success"})
+
+})
+
+//ssr
+app.get("/users",async (req,res)=>{
+
+    const allDbUsers = await User.find({});
+
+    //mapping over all user
+    const html = `
+        <ul
+        ${allDbUsers
+            .map((user)=> `<li>${user.first_name}-${user.email}</li>`)
+            .join("")}
+        </ul>
+    `
+    res.send(html);
+
+})
+
+//csr
+app.get("/api/users",async (req,res)=>{
+    const allDbUsers = await User.find({});
+
+    res.setHeader("X-purpose","testing");
+
+    return res.json(allDbUsers);
+})
 
 app
-    .route('/api/users/:id')
-    .get((req, res) => {
-        const id = Number(req.params.id); // by deafult id from req will in string
-        const user = users.find((user) => {
-            if (user.id === id) return user;
-        })
+    .route("/api/users/:id")
+    .get(async (req,res) => {
+        const user = await User.findById(req.params.id);
         return res.json(user);
     })
-    .patch((req, res) => {
-        //to do edit user with id
-
-        const id = Number(req.params.id);
-        const body = req.body;
-        users.map((user)=>{
-            if(user.id === id ){
-                user.email = body.email;
-            }
-        })
-
-        fs.writeFile('./MOCK_DATA.json',JSON.stringify(users), (err,data)=>{
-            return res.json({status : "Success"});
-
-        })
-
+    .patch(async (req,res)=>{
+        const user = await User.findByIdAndUpdate(req.params.id,{last_name: "kaushik"});
+        return res.json({mssg : "success"});
     })
-    .delete((req, res) => {
-        //to do delete user with id
-        const id = Number(req.params.id);
-
-        const data = users.filter(user => user.id !== id);
-        fs.writeFile('./MOCK_DATA.json',JSON.stringify(data),(err,data)=>{
-            return res.json({status : "success"});
-        })
+    .delete(async (req,res) => {
+        await User.findByIdAndDelete(req.params.id);
+        return res.json("success");
     })
-
-
-
-
-
 //server started
-
 app.listen(PORT, () => console.log(`Server started at port : ${PORT}`));
